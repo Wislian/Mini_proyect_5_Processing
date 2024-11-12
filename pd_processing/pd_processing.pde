@@ -27,7 +27,7 @@ void iniciarJuego() {
     juegoActivo = true;
     
     // Crear bola principal en el centro con número inicial 1
-    bolaPrincipal = new BolaPrincipal(width/2, height/2, "curvilineo", 1);
+    bolaPrincipal = new BolaPrincipal(width/2, height/2, "triangular", 1);
     
     // Inicializar bolas secundarias
     bolasSecundarias = new ArrayList<>();
@@ -77,6 +77,9 @@ class BolaPrincipal {
     int numero;
     ArrayList<PVector> estela;
     float velocidad;
+    float waveAmplitude;
+    float waveFrequency;
+    float offsetY;
     
     BolaPrincipal(float x, float y, String movimiento, int numero) {
         this.x = x;
@@ -85,24 +88,24 @@ class BolaPrincipal {
         this.numero = numero;
         this.estela = new ArrayList<>();
         this.velocidad = 0.05;
+        this.waveAmplitude = 30;
+        this.waveFrequency = 0.1;
+        this.offsetY = 0;
     }
     
     void mover(float targetX, float targetY) {
         float dx = targetX - x;
         float dy = targetY - y;
-        
+        x += dx * velocidad;
+        y += dy * velocidad;
         switch(movimiento) {
+            
             case "curvilineo":
-                x += dx * velocidad;
-                y += dy * velocidad;
+                
+                offsetY = sin(frameCount * waveFrequency) * waveAmplitude;
                 break;
             case "triangular":
-                if (abs(dx) > 5) {
-                    x += dx * velocidad * 1.5;
-                }
-                if (abs(dy) > 5) {
-                    y += dy * velocidad * 1.5;
-                }
+                
                 break;
             case "rectangular":
                 if (abs(dx) > abs(dy)) {
@@ -131,7 +134,7 @@ class BolaPrincipal {
         // Dibujar bola principal
         fill(100, 100, 255);
         stroke(50, 50, 200);
-        ellipse(x, y, 40, 40);
+        ellipse(x, y + offsetY, 40, 40);
         
         // Mostrar número
         fill(255);
