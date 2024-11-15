@@ -436,18 +436,18 @@ final class Particle
 void display() {
     switch (particleTypeNumber) {
      case 1: 
-        int numSparks = 2;  // Número de chispas
+        int numSparks = 2;  
         for (int i = 0; i < numSparks; i++) {
-            float angle = random(TWO_PI);  // Ángulo aleatorio para cada chispa
-            float distance = random(5, 20) * getFadeRatio();  // Distancia aleatoria desde el centro
-            float sparkSize = random(2, 5) * getFadeRatio();  // Tamaño aleatorio de las chispas
+            float angle = random(TWO_PI);  
+            float distance = random(5, 20) * getFadeRatio(); 
+            float sparkSize = random(2, 5) * getFadeRatio(); 
     
-            float sparkX = xPosition + distance * cos(angle);  // Posición X de la chispa
-            float sparkY = yPosition + distance * sin(angle);  // Posición Y de la chispa
+            float sparkX = xPosition + distance * cos(angle);  
+            float sparkY = yPosition + distance * sin(angle);
     
             noStroke();
             fill(255, 255, 255); 
-            ellipse(sparkX, sparkY, sparkSize, sparkSize);  // Dibuja la chispa
+            ellipse(sparkX, sparkY, sparkSize, sparkSize);  
         }
         break;
 

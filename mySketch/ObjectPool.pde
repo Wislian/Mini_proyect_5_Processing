@@ -1,6 +1,3 @@
-// This tab is independent.
-// Last update: 20. Sep. 2017
-
 interface Poolable
 {
   public boolean isAllocated();
@@ -86,11 +83,11 @@ final class ObjectPool<T extends Poolable>
       temporalInstanceCount--;
       deallocate(temporalInstanceList.get(temporalInstanceCount));
     }
-    temporalInstanceList.clear();    // not needed when array
+    temporalInstanceList.clear();  
   }
   
   void setTemporal(T obj) {
-    temporalInstanceList.add(obj);    // set when array
+    temporalInstanceList.add(obj);    
     temporalInstanceCount++;
   }
 }

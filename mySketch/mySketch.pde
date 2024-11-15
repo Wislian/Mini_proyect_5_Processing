@@ -6,9 +6,9 @@ NetAddress route;
 
 
 color bgColor;
-color targetBgColor;  // Color objetivo para la transición
-int lastChangeTime;   // Tiempo del último cambio de color
-float transitionSpeed = 0.02; // Velocidad de transición
+color targetBgColor;  
+int lastChangeTime;   
+float transitionSpeed = 0.02;
 float changeColor;
 
 private static final float IDEAL_FRAME_RATE = 60.0;
@@ -25,22 +25,13 @@ Table table;
 int canvasSideLength = INTERNAL_CANVAS_SIDE_LENGTH;
 float scaleFactor;
 
-/* For processing.js
-const containerRect = window.document.getElementById("Duel").getBoundingClientRect();
-canvasSideLength = min(containerRect.width, containerRect.height);
-*/
-
-/* For OpenProcessing */
-//canvasSideLength = min(window.innerWidth, window.innerHeight);
-
-// For Processing Java mode
 void settings() {
   size(canvasSideLength, canvasSideLength);
 }
 
 
 void setup() {
-  /* For processing.js */
+  
   size(canvasSideLength, canvasSideLength);
 
   scaleFactor = (float)canvasSideLength / (float)INTERNAL_CANVAS_SIDE_LENGTH;
@@ -49,7 +40,6 @@ void setup() {
 
   // Prepare font
   final String fontFilePath = "Lato-Regular.ttf";
-  final String fontName = "Lato";
   smallFont = createFont(fontFilePath, 20.0, true);
   largeFont = createFont(fontFilePath, 96.0, true);
   textFont(largeFont, 96.0);
@@ -63,28 +53,27 @@ void setup() {
   oscP5 = new OscP5(this, 9001);
   route = new NetAddress("localhost", 9000);
   changeColor = 30000;
-  bgColor = color(128, 0, 255);         // Color inicial
-  targetBgColor = color(128, 0, 255);   // Inicializamos el color objetivo igual al color inicial
-  lastChangeTime = millis();            // Guardamos el tiempo actual
-  newGame(true);  //
+  bgColor = color(128, 0, 255);        
+  targetBgColor = color(128, 0, 255);  
+  lastChangeTime = millis();           
+  newGame(true); 
 }
 
 void draw() {
   if (millis() - lastChangeTime >= changeColor) {  
-    targetBgColor = color(random(255), random(255), random(255));  // Nuevo color objetivo aleatorio
-    lastChangeTime = millis();  // Actualiza el último cambio de tiempo
+    targetBgColor = color(random(255), random(255), random(255)); 
+    lastChangeTime = millis();  
   }
 
-  // Interpolar entre el color actual y el color objetivo
+  
   bgColor = lerpColor(bgColor, targetBgColor, transitionSpeed);
   
-  background(bgColor);  // Usa el color interpolado como fondo
+  background(bgColor);  
   scale(scaleFactor);
   system.run();
 }
 
 void exit() {
-  println("El programa se está cerrando. Ejecutando última acción...");
   modifyWaves(0,0,0);
   send_message("/turnWaves",turnWaves);
   super.exit();

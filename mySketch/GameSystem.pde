@@ -86,14 +86,12 @@ final class GameSystem
   void displayText(){
      pushStyle();
      
-    // Texto en la parte superior
-    fill(0); // Color del texto (negro)
+    fill(0);
     textSize(16);
     textAlign(LEFT, CENTER);
     text(song_2.trackName, 10, 25);
     text(song_2.streams+"k", 10, 45);
   
-    // Texto en la parte inferior
     textAlign(RIGHT, CENTER);
     text(song_1.streams+"k", width-10, height - 45);
     text(song_1.trackName, width-10, height - 25);
@@ -183,24 +181,20 @@ final class Star {
   float size;
 
   Star() {
-    // Inicializar la estrella con una posición aleatoria y tamaño aleatorio
     x = random(INTERNAL_CANVAS_SIDE_LENGTH);
     y = random(INTERNAL_CANVAS_SIDE_LENGTH);
-    size = random(1, 4); // Tamaño de la estrella (1 para estrellas lejanas, 4 para cercanas)
+    size = random(1, 4); 
     velocityX = random(-0.5, 0.5);
     velocityY = random(-0.5, 0.5);
   }
 
   void update(float acceleration) {
-    // Actualizar posición
     x += velocityX;
     y += velocityY;
 
-    // Aplicar aceleración
     velocityX += acceleration * 0.1;
     velocityY += acceleration * 0.1;
 
-    // Rebotar si se sale del límite
     if (x < 0.0 || x > INTERNAL_CANVAS_SIDE_LENGTH) {
       velocityX = -velocityX;
       x = constrain(x, 0.0, INTERNAL_CANVAS_SIDE_LENGTH);
@@ -212,7 +206,6 @@ final class Star {
   }
 
   void display() {
-    // Dibujar la estrella como un punto
     strokeWeight(size);
     point(x, y);
   }
